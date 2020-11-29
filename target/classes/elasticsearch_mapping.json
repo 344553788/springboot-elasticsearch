@@ -1,0 +1,36 @@
+{
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "long"
+      },
+      "storeId": {
+        "type": "int"
+      },
+      "storeName": {
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_smart"
+      }
+    },
+    "categoryId": {
+      "type": "int"
+    },
+    "categoryCode": {
+      "analyzer": "ik_max_word",
+      "search_analyzer": "ik_smart"
+    },
+    "productCode": {
+      "type": "text"
+    },
+    "quantity": {
+      "type": "int"
+    },
+    "amount": {
+      "type": "double"
+    },
+    "payDate": {
+      "type": "date",
+      "pattern": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+    }
+  }
+}
