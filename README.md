@@ -1,6 +1,11 @@
 # springboot-elasticsearch
 elasticsearch 分页查询，高亮查询 增删改查
 
+jvm参数
+
+-Xms30m -Xmx30m -Xlog:gc* -XX:+UseG1GC -XX:MaxGCPauseMillis=200 
+-XX:InitiatingHeapOccupancyPercent=45 -XX:NewRatio=2 -XX:SurvivorRatio=8 -XX:MaxTenuringThreshold=15
+
 添加Order对象
 请求类型 POST  application/json
 请求地址： http://localhost:8771/order/add/2

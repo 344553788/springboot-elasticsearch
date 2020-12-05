@@ -103,6 +103,7 @@ public class ElasticsearchService {
 
     public Page<Order> orderPages(String categoryCode, String storeName, Integer pageNum, Integer pageSize) {
 
+
         // 分页条件
         PageRequest pageRequest = PageRequest.of(pageNum, pageSize);
         //条件搜索
@@ -142,9 +143,9 @@ public class ElasticsearchService {
             }
             orderList.add(order);
         }
+
         // 组装分页对象
         Page<Order> orderPage = new PageImpl<>(orderList, pageRequest, searchHits.getTotalHits());
-
         // 组装分页对象
         return orderPage;
     }

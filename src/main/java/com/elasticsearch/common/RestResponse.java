@@ -1,8 +1,10 @@
 package com.elasticsearch.common;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class RestResponse<T> {
 
     private Integer code;
