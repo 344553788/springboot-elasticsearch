@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 public class RestTemplateConfig {
 
     @Bean
-    public RestTemplate getRestTemplate() {
+    public RestTemplate restTemplate() {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         BufferingClientHttpRequestFactory bufferingClientHttpRequestFactory = new BufferingClientHttpRequestFactory(factory);
         //motor服务有的服务响应时间较长，暂定半个小时

@@ -2,7 +2,9 @@ package com.elasticsearch.controller;
 
 import com.elasticsearch.common.RestResponse;
 import com.elasticsearch.config.HandlingAsyncTaskExecutor;
+import com.elasticsearch.convert.OrderConvert;
 import com.elasticsearch.dao.OrderDao;
+import com.elasticsearch.dto.OrderDTO;
 import com.elasticsearch.entity.ESUser;
 import com.elasticsearch.entity.Order;
 import com.elasticsearch.service.ElasticsearchService;
@@ -30,10 +32,14 @@ public class OrderController {
     @Autowired
     private ElasticsearchService elasticsearchService;
 
+    @Autowired
+    private OrderConvert orderConvert;
+
 
     //增加
     @PostMapping("/add/{id}")
-    public RestResponse<Void> add(@PathVariable("id") Long id, @RequestBody Order order) {
+    public RestResponse<Void> add(@PathVariable("id") Long id, @RequestBody OrderDTO orderDTO) {
+        Order order = orderConvert.from(orderDTO);
         order.setId(id);
         try {
             Future<Order> future = handlingAsyncTaskExecutor.submit(() -> orderDao.save(order));
@@ -67,10 +73,7 @@ public class OrderController {
     //查询
     @RequestMapping("/query/{id}")
     public RestResponse<Order> query(@PathVariable("id") Long id) throws InterruptedException {
-//        Order order = orderDao.queryOrderById(id);
-        Order order = new Order();
-        order.setId(id);
-        order.setStoreName("123");
+        Order order = orderDao.queryOrderById(id);
         return RestResponse.success(order);
     }
 
@@ -103,9 +106,10 @@ public class OrderController {
     private ThreadPoolService threadPoolService;
 
     @GetMapping("/test/order/{id}")
-    public RestResponse<List<Order>> testOrder(@PathVariable("id") Long id) {
+    public RestResponse<List<OrderDTO>> testOrder(@PathVariable("id") Long id) {
         List<Order> list = threadPoolService.query(id);
-        return RestResponse.success(list);
+        List<OrderDTO> orderDTOS = orderConvert.to(list);
+        return RestResponse.success(orderDTOS);
     }
 
 }

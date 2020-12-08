@@ -73,7 +73,7 @@ public class ThreadPoolService {
             try {
                 ParameterizedTypeReference<RestResponse<Order>> parameterizedTypeReference = new ParameterizedTypeReference<RestResponse<Order>>() {
                 };
-                ResponseEntity<RestResponse<Order>> restResponse = restTemplate.exchange("http://localhost:8771/api/order/query/" + id, HttpMethod.GET, HttpEntity.EMPTY, parameterizedTypeReference);
+                ResponseEntity<RestResponse<Order>> restResponse = restTemplate.exchange("http://localhost:8771/order/query/" + id, HttpMethod.GET, HttpEntity.EMPTY, parameterizedTypeReference);
                 return restResponse.getBody().getData();
             } catch (Exception e) {
                 log.info("线程失败", e);
